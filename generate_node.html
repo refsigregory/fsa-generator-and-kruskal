@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html></html>
+<head>
+    <meta charset="utf-8">
+    <title>Kruskal Automation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <form method="POST">
+                <div class="form-group">
+                    <label>Start:</label>
+                    <input type="text" class="form-control" name="start" value="A">
+                </div>
+
+                <div class="form-group">
+                    <label>Finish:</label>
+                    <input type="text" class="form-control" name="finish" value="G">
+                </div>
+
+                <div class="form-control">
+                    <button type="submit" class="btn btn-primary btn-block">GENERATE</button>
+                </div>
+            </form>
+            </div>
+        <div class="col">
+            <div id="graph" style="text-align: center; margin: 0 auto;"></div>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col" style="text-align: center;">
+                <br>
+                <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">To</th>
+                        <th scope="col">From</th>
+                        <th scope="col">Weight</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                  </table>
+                  <br>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="//d3js.org/d3.v5.min.js"></script>
+<script src="https://unpkg.com/@hpcc-js/wasm@0.3.6/dist/index.min.js"></script>
+<script src="https://unpkg.com/d3-graphviz@3.0.0/build/d3-graphviz.js"></script>
+
+
+<script>
+
+d3.select("#graph").graphviz()
+    .renderDot(<%- JSON.stringify(graf) %>);
+
+var result = <%- JSON.stringify(result) -%>;
+console.log(result);
+let i = 1;
+result.forEach(row => {
+    $("tbody").append(`<tr>
+                        <th scope="row">` + i +`</th>
+                        <td>` + row[0] +`</td>
+                        <td>` + row[1] +`</td>
+                        <td>` + row[2] +`</td>
+                      </tr>`);
+    i++;
+});
+</script>
+</body>
+</html>
